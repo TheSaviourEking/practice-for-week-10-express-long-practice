@@ -1,5 +1,8 @@
 const express = require('express');
-require('dotenv').config();
+
+// using dotenv
+// require('dotenv').config({path: './env/.env'});
+
 // express-async-errors
 require('express-async-errors');
 
@@ -45,6 +48,5 @@ app.get('/test-error', async (req, res) => {
 app.use(error);
 app.use(errorMiddleware)
 
-console.log('Environment:', process.env.NODE_ENV);
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log('Server is listening on port', port));
+app.listen(port, () => console.log(`Server is listening on port ${port}, and currently running in '${process.env.NODE_ENV.toUpperCase()}'`));

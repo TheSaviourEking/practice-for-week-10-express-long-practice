@@ -92,15 +92,14 @@ const dogsFoods = require('./dog-foods.js');
 
 router.get('/', getAllDogs);
 
-router.use('/:dogId', validateDogId);
-router.use(validateDogInfo);
-
+// Had to use dogFoods before validateDogInfo middleware because the validateDogInfo middleware
+// works for POSTING/PUTTING/DELETING a dog to the server
+router.use('/:dogId', [validateDogId, dogsFoods]);
 router.get('/:dogId', getDogById);
+
+router.use(validateDogInfo);
 router.post('/', createDog);
 router.put('/:dogId', updateDog);
 router.delete('/:dogId', deleteDog);
-
-// validate dogs middleware works here because of route ordering
-router.use('/:dogId', dogsFoods)
 
 module.exports = router;

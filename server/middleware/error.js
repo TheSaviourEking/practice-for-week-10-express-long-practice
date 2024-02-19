@@ -12,14 +12,16 @@ const errorMiddleware = (err, req, res, next) => {
     const message = err.message || 'Internal Server Error';
 
     const errorResponse = {
-        message, 
+        message,
         statusCode
     }
 
     if (process.env.NODE_ENV !== 'production') {
         errorResponse.stackTrace = err.stack;
     }
-    res.status(statusCode).json(errorResponse);
+
+    res.status(statusCode)
+        .json(errorResponse);
 };
 
 module.exports = { error, errorMiddleware };
