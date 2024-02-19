@@ -7,6 +7,9 @@ require('express-async-errors');
 const logger = require('./middleware/logger.js');
 const { error, errorMiddleware } = require('./middleware/error.js');
 
+// routes
+const dogs = require('./routes/dogs.js');
+
 const app = express();
 
 // logger middleware
@@ -22,6 +25,8 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.json("Express server running. No content provided at root level. Please use another route.");
 });
+
+app.use('/dogs', dogs);
 
 // For testing express.json middleware
 app.post('/test-json', (req, res, next) => {
