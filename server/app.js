@@ -3,7 +3,14 @@ const express = require('express');
 // express-async-errors
 require('express-async-errors');
 
+// Custom Middlewares
+const logger = require('./middleware/logger.js');
+const { error, errorMiddleware } = require('./middleware/error.js');
+
 const app = express();
+
+// logger middleware
+app.use(logger);
 
 // express.static
 app.use('/static', express.static('./assets'));
@@ -28,6 +35,10 @@ app.post('/test-json', (req, res, next) => {
 app.get('/test-error', async (req, res) => {
   throw new Error("Hello World!")
 });
+
+// error middlewares
+app.use(error);
+app.use(errorMiddleware)
 
 const port = 5000;
 app.listen(port, () => console.log('Server is listening on port', port));
