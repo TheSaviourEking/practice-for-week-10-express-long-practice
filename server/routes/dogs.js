@@ -88,6 +88,8 @@ const deleteDog = (req, res) => {
 const express = require('express');
 const router = express.Router();
 
+const dogsFoods = require('./dog-foods.js');
+
 router.get('/', getAllDogs);
 
 router.use('/:dogId', validateDogId);
@@ -97,5 +99,8 @@ router.get('/:dogId', getDogById);
 router.post('/', createDog);
 router.put('/:dogId', updateDog);
 router.delete('/:dogId', deleteDog);
+
+// validate dogs middleware works here because of route ordering
+router.use('/:dogId', dogsFoods)
 
 module.exports = router;
