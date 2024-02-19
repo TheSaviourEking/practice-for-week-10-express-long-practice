@@ -1,5 +1,15 @@
 const express = require('express');
+
+// express-async-errors
+require('express-async-errors');
+
 const app = express();
+
+// express.static
+app.use('/static', express.static('./assets'));
+
+// express.json()
+app.use(express.json());
 
 // For testing purposes, GET /
 app.get('/', (req, res) => {
